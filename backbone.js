@@ -109,7 +109,7 @@
       if (arguments.length === 0) {
         delete this._callbacks
       } else if (calls = this._callbacks) {
-        for (i = 0, length = arguments.length; i < length; i++) {
+        for (var i = 0, length = arguments.length; i < length; i++) {
           switch (typeof arguments[i]) {
              case 'string':
                 events = arguments[i].split(/\s+/); break;
@@ -129,13 +129,8 @@
           node = calls[ev];
           delete calls[ev];
           if (!node) continue;
-          //if (!callback || !node) continue;
           // Create a new list, omitting the indicated event/context pairs.
           while ((node = node.next) && node.next) {
-            if (ev === 'an_event') {
-              if ((!callback || node.callback === callback) &&
-                (!context || node.context === context)) console.log("off");
-            }
             if ((!callback || node.callback === callback) &&
               (!context || node.context === context)) continue;
             this.on(ev, node.callback, node.context);
